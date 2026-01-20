@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'internal_api' => [
+        'key' => env('API_INTERNAL_KEY'),
+        'req_per_minute' => env('API_REQ_PER_MINUTE')
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
