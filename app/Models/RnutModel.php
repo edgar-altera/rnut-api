@@ -7,10 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 abstract class RnutModel extends Model
 {
+    public $timestamps = false;
+    
     public function getConnectionName()
     {
         return RnutConnectionResolver::get();
     }
 
-    public $timestamps = false;
+    protected static function booted()
+    {
+        static::addGlobalScope('active', function ($query) {
+
+            $table = $query->getModel()->getTable();
+            
+            $query->where("{$table}.alta", 1);
+        });
+    }
 }

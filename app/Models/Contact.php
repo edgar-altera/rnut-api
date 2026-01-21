@@ -6,11 +6,6 @@ class Contact extends RnutModel
 {
     protected $table = 'contacto';
 
-    protected static function booted()
-    {
-        static::addGlobalScope('active', fn ($q) => $q->where('alta', 1));
-    }
-
     public function owner()
     {
         return $this->belongsTo(
