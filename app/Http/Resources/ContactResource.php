@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ContactType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactResource extends JsonResource
@@ -13,8 +14,10 @@ class ContactResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $type = ContactType::cached()->get($this->tipo);
+
         return [
-            'type'  => $this->type?->descripcion,
+            'type'  => $type?->descripcion,
             'value' => $this->dato,
         ];
     }
