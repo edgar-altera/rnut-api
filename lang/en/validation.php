@@ -24,6 +24,7 @@ return [
     ],
     'boolean'                => 'The :attribute field must be true or false.',
     'can'                    => 'The :attribute field contains an unauthorized value.',
+    'chilean_plate'          => 'The :attribute field must have a valid Chilean license plate format.',
     'confirmed'              => 'The :attribute field confirmation does not match.',
     'contains'               => 'The :attribute field is missing a required value.',
     'current_password'       => 'The password is incorrect.',
@@ -155,4 +156,8 @@ return [
     'uppercase'              => 'The :attribute field must be uppercase.',
     'url'                    => 'The :attribute field must be a valid URL.',
     'uuid'                   => 'The :attribute field must be a valid UUID.',
+
+    'attributes' => [
+        'licensePlate' => 'license plate',
+    ],
 ];

@@ -24,6 +24,7 @@ return [
     ],
     'boolean'                => 'El campo :attribute debe tener un valor verdadero o falso.',
     'can'                    => 'El campo :attribute contiene un valor no autorizado.',
+    'chilean_plate'          => 'El campo :attribute debe tener un formato de patente chilena válido.',
     'confirmed'              => 'La confirmación de :attribute no coincide.',
     'contains'               => 'Al campo :attribute le falta un valor obligatorio.',
     'current_password'       => 'La contraseña es incorrecta.',
@@ -155,4 +156,8 @@ return [
     'uppercase'              => 'El campo :attribute debe estar en mayúscula.',
     'url'                    => 'El campo :attribute debe ser una URL válida.',
     'uuid'                   => 'El campo :attribute debe ser un UUID válido.',
+
+    'attributes' => [
+        'licensePlate' => 'patente',
+    ],
 ];
