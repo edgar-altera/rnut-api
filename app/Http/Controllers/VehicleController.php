@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ShowVehicleRequest;
 use App\Http\Resources\OwnerVehiclesResource;
 use App\Http\Resources\VehicleWithOwnerResource;
+use App\Models\Contact;
 use App\Models\Owner;
 use App\Models\Vehicle;
 use App\Support\ApiResponse;
@@ -22,17 +23,24 @@ class VehicleController extends Controller
 
     public function byRut(string $rut)
     {
-        $owner = Owner::with(['contacts.type'])
-            ->where('rut', $rut)
-            ->firstOrFail();
+        $owner = Owner::where('rut', $rut)->firstOrFail();
+
+        $entitytIds = Owner::where('rut', $rut)->pluck('id');
+
+        $contacts = Contact::whereIn('id_entidad', $entitytIds)
+            ->select('tipo', 'dato')
+            ->distinct()
+            ->with('type')
+            ->get();
 
         $vehicles = Vehicle::whereHas('owner', function ($q) use ($rut) {
             $q->where('rut', $rut);
         })->simplePaginate(10);
 
         return ApiResponse::success(data: new OwnerVehiclesResource(
+            vehicles: $vehicles,
             owner: $owner,
-            vehicles: $vehicles
+            contacts: $contacts
         ));
     }
 }

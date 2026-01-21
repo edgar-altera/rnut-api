@@ -8,8 +8,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class OwnerVehiclesResource extends JsonResource
 {
     public function __construct(
+        protected $vehicles,
         protected Owner $owner,
-        protected $vehicles
+        protected $contacts
     ) {}
 
     /**
@@ -20,11 +21,13 @@ class OwnerVehiclesResource extends JsonResource
     public function toArray($request): array
     {
          return [
-            'owner' => new OwnerResource($this->owner),
-
             'vehicles' => VehicleResource::collection(
                 $this->vehicles->items()
             ),
+
+            'owner' => new OwnerResource($this->owner),
+
+            'contacts' => ContactResource::collection($this->contacts),
 
             'pagination' => [
                 'current_page' => $this->vehicles->currentPage(),
