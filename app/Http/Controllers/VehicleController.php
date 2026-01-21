@@ -11,7 +11,7 @@ class VehicleController extends Controller
 {
     public function show(ShowVehicleRequest $request, string $licensePlate)
     {
-        $vehicle = Vehicle::with('owner')
+        $vehicle = Vehicle::with(['owner.contacts'])
                         ->where('patente', $licensePlate)
                         ->firstOrFail();
 

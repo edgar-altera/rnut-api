@@ -17,4 +17,13 @@ class Owner extends RnutModel
             'id_vehiculo'    // FK en contrato_vehiculo
         );
     }
+
+    public function contacts()
+    {
+        return $this->hasMany(
+            Contact::class,
+            'id_entidad', // FK en contacto
+            'id'          // PK en entidad
+        );
+    }
 }

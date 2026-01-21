@@ -18,6 +18,9 @@ class OwnerResource extends JsonResource
             'names' => $this->nombres,
             'lastName' => $this->apellido_paterno,
             'secondLastName' => $this->apellido_materno,
+            'contacts' => ContactResource::collection(
+                $this->whenLoaded('contacts')
+            )
         ];
     }
 }
