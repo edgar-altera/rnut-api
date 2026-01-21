@@ -14,16 +14,13 @@ class VehicleResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'vehicle' => [
-                'license_plate' => $this->patente,
-                'dv' => $this->dv,
-                'brand' => $this->marca,
-                'model' => $this->modelo,
-                'year' => $this->ano,
-                'version' => $this->version,
-                'color' => $this->color,
-            ],
-            'owner' => new OwnerResource($this->owner)
+            'license_plate' => $this->patente,
+            'dv' => $this->dv,
+            'brand' => $this->marca,
+            'model' => $this->modelo,
+            'year' => $this->ano,
+            'version' => $this->version,
+            'color' => $this->color,
         ];
     }
 }

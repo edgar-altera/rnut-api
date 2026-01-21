@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ShowVehicleRequest;
-use App\Http\Resources\OwnerResource;
-use App\Http\Resources\VehicleResource;
+use App\Http\Resources\OwnerVehiclesResource;
+use App\Http\Resources\VehicleWithOwnerResource;
 use App\Models\Owner;
 use App\Models\Vehicle;
-use App\Models\ContractVehicle;
 use App\Support\ApiResponse;
 
 class VehicleController extends Controller
@@ -18,7 +17,7 @@ class VehicleController extends Controller
                         ->where('patente', $licensePlate)
                         ->firstOrFail();
 
-        return ApiResponse::success(data: new VehicleResource($vehicle));
+        return ApiResponse::success(data: new VehicleWithOwnerResource($vehicle));
     }
 
     public function byRut(string $rut)
@@ -31,9 +30,9 @@ class VehicleController extends Controller
             $q->where('rut', $rut);
         })->simplePaginate(10);
 
-        return ApiResponse::success(data: [
-            'owner'    => new OwnerResource($owner),
-            'vehicles' => VehicleResource::collection($vehicles),
-        ]);
+        return ApiResponse::success(data: new OwnerVehiclesResource(
+            owner: $owner,
+            vehicles: $vehicles
+        ));
     }
 }

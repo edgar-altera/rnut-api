@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OwnerResource extends JsonResource
+class VehicleWithOwnerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,11 @@ class OwnerResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'rut' => $this->rut,
-            'dv' => $this->dv,
-            'names' => $this->nombres,
-            'lastName' => $this->apellido_paterno,
-            'secondLastName' => $this->apellido_materno,
+            'vehicle'  => new VehicleResource($this),
+            'owner'    => new OwnerResource($this->owner),
+            'contacts' => ContactResource::collection(
+                $this->owner->contacts
+            ),
         ];
     }
 }
