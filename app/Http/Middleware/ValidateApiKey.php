@@ -23,7 +23,10 @@ class ValidateApiKey
             throw new AccessDeniedHttpException(__('messages.api_key_missing'));
         }
 
-        if (! hash_equals(config('services.internal_api.key'), $apiKey)) {
+        if (! hash_equals(
+            config('services.internal_api.key'),
+            hash_hmac('sha256', $apiKey, config('app.key'))
+        )) {
 
             throw new AccessDeniedHttpException(__('messages.api_key_invalid'));
         }

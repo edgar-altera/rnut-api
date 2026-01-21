@@ -13,3 +13,12 @@ Artisan::command('generate:api-key', function () {
 
     $this->comment($apiKey);
 })->purpose('Generate random api key string');
+
+Artisan::command('system:hash {value}', function () {
+
+    $value = $this->argument('value');
+
+    $hash = hash_hmac('sha256', $value, config('app.key'));
+
+    $this->comment($hash);
+})->purpose('Hash value');
