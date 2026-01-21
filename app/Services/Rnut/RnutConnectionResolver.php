@@ -11,11 +11,11 @@ class RnutConnectionResolver
     {
         return Cache::remember(
             'rnut_active_connection',
-            30,
+            900,
             function () {
                 return DB::connection('mysql_rnut_ctrl')
                     ->table('dbs')
-                    ->where('type', 'active')
+                    ->where('mode', 'active')
                     ->value('connection');
             }
         );
