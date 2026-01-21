@@ -11,7 +11,9 @@ class VehicleController extends Controller
 {
     public function show(ShowVehicleRequest $request, string $licensePlate)
     {
-        $vehicle = Vehicle::where('patente', $licensePlate)->firstOrFail();
+        $vehicle = Vehicle::with('owner')
+                        ->where('patente', $licensePlate)
+                        ->firstOrFail();
 
         return ApiResponse::success(data: new VehicleResource($vehicle));
     }

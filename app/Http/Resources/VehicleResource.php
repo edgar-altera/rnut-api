@@ -15,14 +15,15 @@ class VehicleResource extends JsonResource
     {
         return [
             'vehicle' => [
-                'license_plate' => $this['patente'],
-                'dv' => $this['dv'],
-                'brand' => $this['marca'],
-                'model' => $this['modelo'],
-                'year' => $this['ano'],
-                'version' => $this['version'],
-                'color' => $this['color'],
+                'license_plate' => $this->patente,
+                'dv' => $this->dv,
+                'brand' => $this->marca,
+                'model' => $this->modelo,
+                'year' => $this->ano,
+                'version' => $this->version,
+                'color' => $this->color,
             ],
+            'owner' => new OwnerResource($this->owner)
         ];
     }
 }
