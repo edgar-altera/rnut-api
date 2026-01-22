@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
             $maxAttempts = (int) config('services.internal_api.req_per_minute');
 
-            return Limit::perMinute($maxAttempts)->by($request->header('x-api-key'));
+            return Limit::perMinute($maxAttempts)->by($request->ip());
         });
     }
 }
