@@ -10,7 +10,8 @@ class OwnerVehiclesResource extends JsonResource
     public function __construct(
         protected $vehicles,
         protected Owner $owner,
-        protected $contacts
+        protected $contacts,
+        protected $addresses
     ) {}
 
     /**
@@ -28,6 +29,8 @@ class OwnerVehiclesResource extends JsonResource
             'owner' => new OwnerResource($this->owner),
 
             'contacts' => ContactResource::collection($this->contacts),
+
+            'addresses' => AddressResource::collection($this->addresses),
 
             'pagination' => [
                 'current_page' => $this->vehicles->currentPage(),

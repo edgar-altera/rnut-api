@@ -19,6 +19,10 @@ class OwnerResource extends JsonResource
             'names' => $this->nombres,
             'lastName' => $this->apellido_paterno,
             'secondLastName' => $this->apellido_materno,
+            'address' => $this->whenLoaded(
+                'address',
+                fn () => new AddressResource($this->address)
+            ),
         ];
     }
 }

@@ -27,6 +27,15 @@ class Owner extends RnutModel
         );
     }
 
+    public function address()
+    {
+        return $this->hasOne(
+            Address::class,
+            'id_contrato', // FK en direccion
+            'id_contrato'  // PK lógica en entidad
+        );
+    }
+
     public function contacts()
     {
         return $this->hasMany(

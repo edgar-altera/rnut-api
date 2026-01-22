@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ShowVehicleRequest;
 use App\Http\Resources\OwnerVehiclesResource;
 use App\Http\Resources\VehicleWithOwnerResource;
+use App\Models\Address;
 use App\Models\Contact;
 use App\Models\Owner;
 use App\Models\Vehicle;
@@ -14,7 +15,7 @@ class VehicleController extends Controller
 {
     public function show(ShowVehicleRequest $request, string $licensePlate)
     {
-        $vehicle = Vehicle::with(['owner.contacts.type'])
+        $vehicle = Vehicle::with(['owner.address', 'owner.contacts.type'])
                         ->where('patente', $licensePlate)
                         ->firstOrFail();
 
@@ -27,10 +28,17 @@ class VehicleController extends Controller
 
         $entitytIds = Owner::where('rut', $rut)->pluck('id');
 
+        $contractIds = Owner::where('rut', $rut)->pluck('id_contrato');
+
         $contacts = Contact::whereIn('id_entidad', $entitytIds)
             ->select('tipo', 'dato')
             ->distinct()
             ->with('type')
+            ->get();
+
+        $addresses = Address::whereIn('id_contrato', $contractIds)
+            ->select('comuna', 'calle', 'numero', 'departamento', 'codigo_postal', 'comentario')
+            ->distinct()
             ->get();
 
         $vehicles = Vehicle::whereHas('owner', function ($q) use ($rut) {
@@ -40,7 +48,8 @@ class VehicleController extends Controller
         return ApiResponse::success(data: new OwnerVehiclesResource(
             vehicles: $vehicles,
             owner: $owner,
-            contacts: $contacts
+            contacts: $contacts,
+            addresses: $addresses
         ));
     }
 }
