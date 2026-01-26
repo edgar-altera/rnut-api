@@ -42,6 +42,8 @@ class ValidateApiKey
             throw new AccessDeniedHttpException(__('messages.api_key_invalid'));
         }
 
+        $request->attributes->set('apiClient', $apiClient);
+
         $apiClient->update([
             'last_used_at' => Carbon::now()
         ]);

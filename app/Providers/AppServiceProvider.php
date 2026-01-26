@@ -24,9 +24,11 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
 
-            $maxAttempts = 60; // TO DO get from api key 
+            $apiClient = $request->attributes->get('apiClient');
 
-            return Limit::perMinute($maxAttempts)->by($request->ip());
+            $maxAttempts = $apiClient?->rate_limit ?? 60;
+
+            return Limit::perMinute($maxAttempts)->by($request->header('x-api-key-id'));
         });
     }
 }
