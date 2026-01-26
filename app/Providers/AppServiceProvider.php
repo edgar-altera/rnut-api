@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         RateLimiter::for('api', function (Request $request) {
 
-            $maxAttempts = (int) config('services.internal_api.req_per_minute');
+            $maxAttempts = 60; // TO DO get from api key 
 
             return Limit::perMinute($maxAttempts)->by($request->ip());
         });

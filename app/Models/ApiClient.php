@@ -13,6 +13,7 @@ class ApiClient extends Model
         'api_secret',
         'rate_limit',
         'is_active',
+        'last_used_at',
         'revoked_at',
     ];
 
