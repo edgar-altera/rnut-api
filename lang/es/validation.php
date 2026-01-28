@@ -25,6 +25,7 @@ return [
     'boolean'                => 'El campo :attribute debe tener un valor verdadero o falso.',
     'can'                    => 'El campo :attribute contiene un valor no autorizado.',
     'chilean_plate'          => 'El campo :attribute debe tener un formato de patente chilena válido.',
+    'chilean_rut'            => 'El campo :attribute debe ser un RUT chileno válido.',
     'confirmed'              => 'La confirmación de :attribute no coincide.',
     'contains'               => 'Al campo :attribute le falta un valor obligatorio.',
     'current_password'       => 'La contraseña es incorrecta.',

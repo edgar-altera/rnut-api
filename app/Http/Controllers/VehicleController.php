@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexVehiclesByRutRequest;
 use App\Http\Requests\ShowVehicleRequest;
 use App\Http\Resources\OwnerVehiclesResource;
 use App\Http\Resources\VehicleWithOwnerResource;
@@ -22,13 +23,13 @@ class VehicleController extends Controller
         return ApiResponse::success(data: new VehicleWithOwnerResource($vehicle));
     }
 
-    public function byRut(string $rut)
+    public function byRut(IndexVehiclesByRutRequest $request, string $rut)
     {
-        $owner = Owner::where('rut', $rut)->firstOrFail();
+        $owner = Owner::where('rut', $request->rut)->firstOrFail();
 
-        $entitytIds = Owner::where('rut', $rut)->pluck('id');
+        $entitytIds = Owner::where('rut', $request->rut)->pluck('id');
 
-        $contractIds = Owner::where('rut', $rut)->pluck('id_contrato');
+        $contractIds = Owner::where('rut', $request->rut)->pluck('id_contrato');
 
         $contacts = Contact::whereIn('id_entidad', $entitytIds)
             ->select('tipo', 'dato')
@@ -42,8 +43,8 @@ class VehicleController extends Controller
             ->get();
 
         $vehicles = Vehicle::with(['urbanCategory', 'interurbanCategory'])
-                    ->whereHas('owner', function ($q) use ($rut) {
-                        $q->where('rut', $rut);
+                    ->whereHas('owner', function ($q) use ($request) {
+                        $q->where('rut', $request->rut);
                     })->simplePaginate(10);
 
         return ApiResponse::success(data: new OwnerVehiclesResource(
