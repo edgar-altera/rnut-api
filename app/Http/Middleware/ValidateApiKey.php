@@ -5,11 +5,11 @@ namespace App\Http\Middleware;
 use App\Models\ApiClient;
 use Carbon\Carbon;
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ValidateApiKey
 {
@@ -24,9 +24,9 @@ class ValidateApiKey
 
         $apiKey = $request->header('x-api-key');
 
-        if (! $apiKey) {
+        if (!$apiKeyId || ! $apiKey) {
 
-            throw new AccessDeniedHttpException(__('messages.api_key_missing'));
+            throw new AuthenticationException(__('messages.api_key_missing'));
         }
 
         $apiClient = Cache::remember(
@@ -39,7 +39,7 @@ class ValidateApiKey
 
         if (!$apiClient || ! Hash::check($apiKey, $apiClient->api_key_hash)) {
 
-            throw new AccessDeniedHttpException(__('messages.api_key_invalid'));
+            throw new AuthenticationException(__('messages.api_key_invalid'));
         }
 
         $request->attributes->set('apiClient', $apiClient);

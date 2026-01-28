@@ -17,7 +17,13 @@ class AddContext
      */
     public function handle(Request $request, Closure $next): Response
     {
-        Context::add('trace_id', Str::uuid()->toString());
+        $client = $request->attributes->get('apiClient');
+
+        Context::add([
+            'api_key_id' => $client->api_key_id,
+            'ip' => $request->ip(),
+            'trace_id'  => Str::uuid()->toString(),
+        ]);
         
         return $next($request);
     }

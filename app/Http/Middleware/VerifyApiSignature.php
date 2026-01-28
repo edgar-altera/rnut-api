@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -16,6 +17,13 @@ class VerifyApiSignature
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $apiClient = $request->attributes->get('apiClient');
+
+        if (! $apiClient) {
+
+            throw new AuthenticationException(__('messages.api_key_invalid'));
+        }
+
         $signature = $request->header('x-signature');
         
         $timestamp = $request->header('x-timestamp');
@@ -28,13 +36,6 @@ class VerifyApiSignature
         if (abs(time() - (int) $timestamp) > 300) {
 
             throw new AccessDeniedHttpException(__('messages.signature_expired'));
-        }
-
-        $apiClient = $request->attributes->get('apiClient');
-
-        if (! $apiClient) {
-
-            throw new AccessDeniedHttpException(__('messages.api_key_invalid'));
         }
 
         $payload = implode("\n", [

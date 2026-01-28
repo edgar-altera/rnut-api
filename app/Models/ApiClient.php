@@ -31,6 +31,11 @@ class ApiClient extends Model
             'revoked_at' => 'datetime',
         ];
     }
+
+    public function allowedIps()
+    {
+        return $this->hasMany(ApiClientIp::class);
+    }
 }
 
 

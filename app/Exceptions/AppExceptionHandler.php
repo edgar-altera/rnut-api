@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Support\ApiResponse; 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -18,6 +19,14 @@ class AppExceptionHandler
     public function __invoke(Throwable $th)
     {
         Log::error($th->getMessage());
+
+        if ($th instanceof AuthenticationException) {
+                
+            return ApiResponse::error(
+                http_message(Response::HTTP_UNAUTHORIZED),
+                Response::HTTP_UNAUTHORIZED
+            );
+        }
 
         if ($th instanceof AccessDeniedHttpException) {
                 
