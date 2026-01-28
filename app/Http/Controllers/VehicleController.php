@@ -15,7 +15,7 @@ class VehicleController extends Controller
 {
     public function show(ShowVehicleRequest $request, string $licensePlate)
     {
-        $vehicle = Vehicle::with(['owner.address', 'owner.contacts.type'])
+        $vehicle = Vehicle::with(['owner.address', 'owner.contacts.type', 'urbanCategory', 'interurbanCategory'])
                         ->where('patente', $licensePlate)
                         ->firstOrFail();
 
@@ -41,9 +41,10 @@ class VehicleController extends Controller
             ->distinct()
             ->get();
 
-        $vehicles = Vehicle::whereHas('owner', function ($q) use ($rut) {
-            $q->where('rut', $rut);
-        })->simplePaginate(10);
+        $vehicles = Vehicle::with(['urbanCategory', 'interurbanCategory'])
+                    ->whereHas('owner', function ($q) use ($rut) {
+                        $q->where('rut', $rut);
+                    })->simplePaginate(10);
 
         return ApiResponse::success(data: new OwnerVehiclesResource(
             vehicles: $vehicles,

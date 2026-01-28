@@ -21,6 +21,14 @@ class VehicleResource extends JsonResource
             'year' => $this->ano,
             'version' => $this->version,
             'color' => $this->color,
+            'urbanCategory' => $this->whenLoaded(
+                'urbanCategory',
+                fn () => $this->urbanCategory->descripcion
+            ),
+            'interurbanCategory' => $this->whenLoaded(
+                'interurbanCategory',
+                fn () => $this->interurbanCategory->descripcion
+            ),
         ];
     }
 }

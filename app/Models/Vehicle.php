@@ -26,4 +26,20 @@ class Vehicle extends RnutModel
             'id_contrato'    // FK contrato_vehiculo → entidad
         );
     }
+
+    public function urbanCategory()
+    {
+        return $this->belongsTo(
+            UrbanCategory::class,
+            'id_categoria_urbana'
+        );
+    }
+
+    public function interurbanCategory()
+    {
+        return $this->belongsTo(
+            InterurbanCategory::class,
+            'id_categoria_interurbana'
+        );
+    }
 }
