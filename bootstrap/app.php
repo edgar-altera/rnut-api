@@ -7,7 +7,8 @@ use App\Http\Middleware\RateLimit;
 use App\Http\Middleware\SetLang;
 use App\Http\Middleware\ValidateApiKey;
 use App\Http\Middleware\ValidateClientIpMiddleware;
-use App\Http\Middleware\VerifyApiSignature;
+use App\Http\Middleware\ValidateNonce;
+use App\Http\Middleware\ValidateApiSignature;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -21,7 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         
         $middleware->append(ValidateApiKey::class);
         $middleware->append(ValidateClientIpMiddleware::class);
-        $middleware->append(VerifyApiSignature::class);
+        // $middleware->append(ValidateApiSignature::class);
+        // $middleware->append(ValidateNonce::class);
         $middleware->append(EnsureJsonRequest::class);
         $middleware->append(AddContext::class);
         $middleware->append(SetLang::class);

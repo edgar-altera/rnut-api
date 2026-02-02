@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class VerifyApiSignature
+class ValidateApiSignature
 {
     /**
      * Handle an incoming request.
@@ -33,7 +33,7 @@ class VerifyApiSignature
             throw new AccessDeniedHttpException(__('messages.signature_missing'));
         }
 
-        if (abs(time() - (int) $timestamp) > 300) {
+        if (abs(time() - (int) $timestamp) > config('api.signature_ttl')) {
 
             throw new AccessDeniedHttpException(__('messages.signature_expired'));
         }

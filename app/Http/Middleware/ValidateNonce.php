@@ -6,10 +6,11 @@ use Closure;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class ValidateClientIpMiddleware
+class ValidateNonce
 {
     /**
      * Handle an incoming request.
@@ -20,27 +21,31 @@ class ValidateClientIpMiddleware
     {
         $client = $request->attributes->get('apiClient');
 
-        if (! $client) {
+        if (!$client) {
 
             throw new AuthenticationException(__('messages.api_key_missing'));
         }
+        
+        $nonce = $request->header('x-nonce');
 
-        $ip = $request->ip();
+        if (!$nonce) {
 
-        $allowedIps = Cache::remember(
-            "api_client_ips:{$client->id}",
-            config('api.ip_cache_ttl'),
-            fn () =>
-                $client->allowedIps()
-                    ->where('is_active', true)
-                    ->pluck('ip')
-                    ->toArray()
-        );
-
-        if (! in_array($ip, $allowedIps, true)) {
-            
-            throw new AccessDeniedHttpException(__('messages.ip_not_allowed', ['ip' => $ip ]));
+            throw new AccessDeniedHttpException(__('messages.nonce_missing'));
         }
+
+        if (!Str::isUuid($nonce)) {
+
+            throw new AccessDeniedHttpException(__('messages.nonce_invalid'));
+        }
+
+        $cacheKey = "nonce:{$client->id}:{$nonce}";
+
+        if (Cache::has($cacheKey)) {
+
+            throw new AccessDeniedHttpException(__('messages.replay_detected'));
+        }
+
+        Cache::put($cacheKey, true, config('api.nonce_ttl'));
 
         return $next($request);
     }

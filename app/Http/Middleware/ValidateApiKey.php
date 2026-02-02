@@ -31,7 +31,7 @@ class ValidateApiKey
 
         $apiClient = Cache::remember(
             "api_client:{$apiKeyId}",
-            300,
+            config('api.client_cache_ttl'),
             fn () => ApiClient::where('api_key_id', $apiKeyId)
                 ->where('is_active', 1)
                 ->first()
