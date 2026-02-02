@@ -38,11 +38,19 @@ class ValidateApiSignature
             throw new AccessDeniedHttpException(__('messages.signature_expired'));
         }
 
+        $nonce = $request->header('x-nonce');
+
+        if (!$nonce) {
+
+            throw new AccessDeniedHttpException(__('messages.nonce_missing'));
+        }
+
         $payload = implode("\n", [
             $request->method(),
             $request->getPathInfo(),
             $request->getQueryString() ?? '',
             $timestamp,
+            $nonce,
         ]);
 
         $expectedSignature = hash_hmac(
