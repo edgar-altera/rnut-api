@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class InterurbanCategory extends RnutModel
+class InterurbanCategory extends DataCardModel
 {
     protected $table = 'categoria_interurbana';
 

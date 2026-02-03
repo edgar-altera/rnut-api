@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Vehicle extends RnutModel
+class Vehicle extends DataCardModel
 {
     protected $table = 'vehiculo';
 

@@ -43,7 +43,7 @@ return [
             'transaction_mode' => 'DEFERRED',
         ],
 
-        'mysql_rnut_a' => [
+        'mysql_dc_a' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -63,7 +63,7 @@ return [
             ]) : [],
         ],
 
-        'mysql_rnut_b' => [
+        'mysql_dc_b' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -83,7 +83,7 @@ return [
             ]) : [],
         ],
 
-        'mysql_rnut_ctrl' => [
+        'mysql_dc_ctrl' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),

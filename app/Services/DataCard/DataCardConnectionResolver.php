@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Services\Rnut;
+namespace App\Services\DataCard;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class RnutConnectionResolver
+class DataCardConnectionResolver
 {
     public static function get(): string
     {
         return Cache::remember(
-            'rnut_active_connection',
+            'datacard_active_connection',
             900,
             function () {
-                return DB::connection('mysql_rnut_ctrl')
+                return DB::connection('mysql_dc_ctrl')
                     ->table('dbs')
                     ->where('mode', 'active')
                     ->value('connection');

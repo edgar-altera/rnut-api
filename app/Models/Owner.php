@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Owner extends RnutModel
+class Owner extends DataCardModel
 {
     protected $table = 'entidad';
 

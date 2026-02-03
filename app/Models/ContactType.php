@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class ContactType extends RnutModel
+class ContactType extends DataCardModel
 {
     protected $table = 'tipo_contacto';
     public $timestamps = false;

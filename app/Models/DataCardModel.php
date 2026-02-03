@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Services\Rnut\RnutConnectionResolver;
+use App\Services\DataCard\DataCardConnectionResolver;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class RnutModel extends Model
+abstract class DataCardModel extends Model
 {
     public $timestamps = false;
     
     public function getConnectionName()
     {
-        return RnutConnectionResolver::get();
+        return DataCardConnectionResolver::get();
     }
 
     protected static function booted()

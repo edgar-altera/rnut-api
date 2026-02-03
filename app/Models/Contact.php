@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Contact extends RnutModel
+class Contact extends DataCardModel
 {
     protected $table = 'contacto';
 

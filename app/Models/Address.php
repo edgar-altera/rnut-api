@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Address extends RnutModel
+class Address extends DataCardModel
 {
     protected $table = 'direccion';
 

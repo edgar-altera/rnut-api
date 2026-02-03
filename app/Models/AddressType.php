@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class AddressType extends Model
+class AddressType extends DataCardModel
 {
     protected $table = 'tipo_direccion';
 
