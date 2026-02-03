@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Services\DataCard;
+namespace App\Services\DataCar;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
-class DataCardConnectionResolver
+class DataCarConnectionResolver
 {
     public static function get(): string
     {
         return Cache::remember(
-            'datacard_active_connection',
+            'data_car_active_connection',
             900,
             function () {
                 return DB::connection('mysql_dc_ctrl')

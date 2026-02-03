@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Contact extends DataCardModel
+class Contact extends DataCarModel
 {
     protected $table = 'contacto';
 

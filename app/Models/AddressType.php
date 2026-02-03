@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class AddressType extends DataCardModel
+class AddressType extends DataCarModel
 {
     protected $table = 'tipo_direccion';
 

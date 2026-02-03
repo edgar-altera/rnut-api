@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class ContractVehicle extends DataCardModel
+class ContractVehicle extends DataCarModel
 {
     protected $table = 'contrato_vehiculo';
     public $timestamps = false;

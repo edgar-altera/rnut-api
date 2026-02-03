@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Owner extends DataCardModel
+class Owner extends DataCarModel
 {
     protected $table = 'entidad';
 

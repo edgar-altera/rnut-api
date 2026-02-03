@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class UrbanCategory extends DataCardModel
+class UrbanCategory extends DataCarModel
 {
     protected $table = 'categoria_urbana';
 

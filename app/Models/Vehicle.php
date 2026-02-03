@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Vehicle extends DataCardModel
+class Vehicle extends DataCarModel
 {
     protected $table = 'vehiculo';
 

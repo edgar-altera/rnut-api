@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Address extends DataCardModel
+class Address extends DataCarModel
 {
     protected $table = 'direccion';
 

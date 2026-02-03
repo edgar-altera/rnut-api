@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class ContactType extends DataCardModel
+class ContactType extends DataCarModel
 {
     protected $table = 'tipo_contacto';
     public $timestamps = false;

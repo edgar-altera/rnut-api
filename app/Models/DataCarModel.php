@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Services\DataCard\DataCardConnectionResolver;
+use App\Services\DataCar\DataCarConnectionResolver;
 use Illuminate\Database\Eloquent\Model;
 
-abstract class DataCardModel extends Model
+abstract class DataCarModel extends Model
 {
     public $timestamps = false;
     
     public function getConnectionName()
     {
-        return DataCardConnectionResolver::get();
+        return DataCarConnectionResolver::get();
     }
 
     protected static function booted()
