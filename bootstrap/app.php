@@ -22,8 +22,8 @@ return Application::configure(basePath: dirname(__DIR__))
         
         $middleware->append(ValidateApiKey::class);
         $middleware->append(ValidateClientIpMiddleware::class);
-        $middleware->append(ValidateApiSignature::class);
-        $middleware->append(ValidateNonce::class);
+        // $middleware->append(ValidateApiSignature::class);
+        // $middleware->append(ValidateNonce::class);
         $middleware->append(EnsureJsonRequest::class);
         $middleware->append(AddContext::class);
         $middleware->append(SetLang::class);

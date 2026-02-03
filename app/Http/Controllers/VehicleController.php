@@ -16,7 +16,7 @@ class VehicleController extends Controller
 {
     public function show(ShowVehicleRequest $request, string $licensePlate)
     {
-        $vehicle = Vehicle::with(['owner.address', 'owner.contacts.type', 'urbanCategory', 'interurbanCategory'])
+        $vehicle = Vehicle::with(['owner.address.addressType', 'owner.contacts.type', 'urbanCategory', 'interurbanCategory'])
                         ->where('patente', $licensePlate)
                         ->firstOrFail();
 
@@ -37,8 +37,9 @@ class VehicleController extends Controller
             ->with('type')
             ->get();
 
-        $addresses = Address::whereIn('id_contrato', $contractIds)
-            ->select('comuna', 'calle', 'numero', 'departamento', 'codigo_postal', 'comentario')
+        $addresses = Address::with('addressType')
+            ->whereIn('id_contrato', $contractIds)
+            ->select('tipo', 'comuna', 'calle', 'numero', 'departamento', 'codigo_postal', 'comentario')
             ->distinct()
             ->get();
 
