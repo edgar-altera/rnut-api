@@ -19,15 +19,18 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        
-        $middleware->append(ValidateApiKey::class);
-        $middleware->append(ValidateClientIpMiddleware::class);
-        $middleware->append(ValidateApiSignature::class);
-        $middleware->append(ValidateNonce::class);
+
+        $middleware->group('api-secure', [
+            ValidateApiKey::class,
+            ValidateClientIpMiddleware::class,
+            ValidateApiSignature::class,
+            ValidateNonce::class,
+            RateLimit::class,
+        ]);
+
         $middleware->append(EnsureJsonRequest::class);
         $middleware->append(AddContext::class);
         $middleware->append(SetLang::class);
-        $middleware->append(RateLimit::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         
