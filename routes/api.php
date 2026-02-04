@@ -2,11 +2,6 @@
 
 use App\Http\Controllers\HealthController;
 use App\Http\Controllers\VehicleController;
-use App\Http\Middleware\RateLimit;
-use App\Http\Middleware\ValidateApiKey;
-use App\Http\Middleware\ValidateClientIpMiddleware;
-use App\Http\Middleware\ValidateNonce;
-use App\Http\Middleware\ValidateApiSignature;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {

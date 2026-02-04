@@ -26,10 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
             ValidateApiSignature::class,
             ValidateNonce::class,
             RateLimit::class,
+            AddContext::class,
         ]);
 
         $middleware->append(EnsureJsonRequest::class);
-        $middleware->append(AddContext::class);
         $middleware->append(SetLang::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
