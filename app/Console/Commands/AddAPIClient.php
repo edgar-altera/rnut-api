@@ -44,7 +44,7 @@ class AddAPIClient extends Command
         ApiClient::create([
             'name' => $name,
             'api_key_id' => $apiKeyId,
-            'api_key_hash' => $apiKey,
+            'api_key_hash' => hash_hmac('sha256', $apiKey, config('app.key')),
             'api_secret' => $secretKey,
         ]);
 

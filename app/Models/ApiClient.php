@@ -25,7 +25,6 @@ class ApiClient extends Model
     protected function casts(): array
     {
         return [
-            'api_key_hash' => 'hashed',
             'is_active' => 'boolean',
             'last_used_at' => 'datetime',
             'revoked_at' => 'datetime',

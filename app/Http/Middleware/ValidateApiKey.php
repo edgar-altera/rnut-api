@@ -37,7 +37,13 @@ class ValidateApiKey
                 ->first()
         );
 
-        if (!$apiClient || ! Hash::check($apiKey, $apiClient->api_key_hash)) {
+        $expectedHash = hash_hmac(
+            'sha256',
+            $apiKey,
+            config('app.key')
+        );
+
+        if (!$apiClient || $apiClient->api_key_hash !== $expectedHash) {
 
             throw new AuthenticationException(__('messages.api_key_invalid'));
         }
