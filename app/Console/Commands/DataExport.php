@@ -91,7 +91,7 @@ class DataExport extends Command
                 AND C.alta = 1
                 AND E.alta = 1
                 AND V.alta = 1
-                AND D.alta = 1 LIMIT 100
+                AND D.alta = 1
         ";
 
         $date = date('Y-m-d-H-i-s');
@@ -117,7 +117,7 @@ class DataExport extends Command
 
             $i++;
 
-            if ($i % 10 === 0) {
+            if ($i % 10000 === 0) {
 
                 $this->line("Procesados {$i} registros...");
             }
